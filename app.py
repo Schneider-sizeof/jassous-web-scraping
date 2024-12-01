@@ -11,8 +11,8 @@ import nltk
 from flask import send_file
 
 app = Flask(__name__)
-
-# Folder to store images temporarily
+nltk.download('stopwords')
+# Folder to store images temporarily 
 IMAGE_FOLDER = 'images_temp'
 if not os.path.exists(IMAGE_FOLDER):
     os.makedirs(IMAGE_FOLDER)
