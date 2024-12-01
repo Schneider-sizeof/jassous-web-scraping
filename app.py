@@ -108,7 +108,7 @@ def scrape_keywords(url):
         word_counts = Counter(words)
 
         # Get the most common 10 words
-        common_keywords = word_counts.most_common(10)
+        common_keywords = word_counts.most_common(20)
 
         print(f"Most frequent words: {common_keywords}")  # Debugging line
         return common_keywords
