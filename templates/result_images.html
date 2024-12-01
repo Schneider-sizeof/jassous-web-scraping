@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jassous - Extract images, links, or keywords effortlessly from any URL. User-friendly and efficient scraping solution.">
+    <meta property="og:title" content="Web Scraping App">
+    <meta property="og:description" content="Extract images, links, or keywords effortlessly from any URL. User-friendly and efficient scraping solution.">
+    <meta property="og:image" content="../static/lg.jpg">
+    <meta property="og:url" content="your-site-url-here">
+    <meta name="twitter:card" content="../static/lg.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="../static/lg.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/lg.ico" type="image/x-icon">
+    <title>Scraped Images</title>
+    <style>
+        body {
+            background: url('https://wallpaper.dog/large/20534387.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+        }
+        .glass-container {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh; /* Restrict height */
+            overflow-y: auto; /* Make scrollable when content exceeds height */
+            text-align: center;
+        }
+        h2 {
+            color: #fff;
+            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .btn-success {
+            background: linear-gradient(90deg, #c4d5e3, #000000);
+            border: none;
+        }
+        .btn-success:hover {
+            background: linear-gradient(90deg, #000000, #c4d5e3);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #000000, #c4d5e3);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #c4d5e3, #000000);
+        }
+        img {
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            color: #fff;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #fff;
+        }
+        .flashing-heading {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px rgb(19, 19, 19), 0 0 20px rgb(44, 44, 41), 0 0 30px rgb(18, 18, 18);
+            animation: flash 1.0s infinite;
+        }
+        @keyframes flash {
+            0% { opacity: 1; text-shadow: 0 0 5px #fff, 0 0 10px rgb(17, 17, 16), 0 0 20px #ff9, 0 0 30px #ff9; }
+            50% { opacity: 0.5; text-shadow: 0 0 5px #ff9, 0 0 10px #ff6, 0 0 20px #ff3, 0 0 30px #ff0; }
+            100% { opacity: 1; text-shadow: 0 0 5px #fff, 0 0 10px rgb(37, 37, 31), 0 0 20px #ff9, 0 0 30px #ff9; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container">
+        <h2 class="flashing-heading" align="center">Scraped Images</h2>
+        
+        {% if images %}
+        <div class="row mt-4 justify-content-center">
+            {% for img in images %}
+                <div class="col-md-4 mb-4 text-center">
+                    <img src="{{ img }}" alt="Image" class="img-fluid" style="min-height: 150px;" onerror="this.onerror=null;this.src='https://via.placeholder.com/150';">
+                    <a href="{{ img }}" download class="btn btn-sm btn-success mt-2 w-100">Open</a>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p class="text-center">No images found.</p>
+        {% endif %}
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Form to download all images as ZIP -->
+                <form action="/download_images" method="POST">
+                    <input type="hidden" name="url" value="{{ url }}">
+                    <button type="submit" class="btn btn-primary mt-3 w-100">Download All Images as ZIP</button>
+                </form>
+                <button class="btn btn-primary mt-3 w-100" onclick="goBack()">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        This app is only for educational purposes | &copy; <a href="https://www.linkedin.com/in/ayyoubberoigui/" class="text-light">Ayyoub Beroigui</a> 2024.
+    </footer>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
